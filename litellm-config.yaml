@@ -1,0 +1,19 @@
+# General settings
+litellm_settings:
+  drop_params: true
+  success_callback: []
+  failure_callback: []
+
+# Server settings
+general_settings:
+  master_key: sk-1234  # Change this to a secure key in production
+  database_url: null
+
+# Models
+model_list:
+  - model_name: phi3-mini
+    litellm_params:
+      model: ollama/phi3:mini
+
+
+
