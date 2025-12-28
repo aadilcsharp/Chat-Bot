@@ -29,13 +29,18 @@ brew install ollama
 curl -fsSL https://ollama.ai/install.sh | sh
 ```
 
-### 2. Start Ollama and Pull Phi-3
+### 2. Start Ollama and Pull Models
 
 ```bash
 # Start Ollama (in a new terminal)
 ollama serve
 
-# Pull Phi-3 mini model (in another terminal)
+# Pull a model that fits your memory:
+# For < 4GB RAM:
+ollama pull tinyllama
+ollama pull qwen2:0.5b
+
+# For 4GB+ RAM:
 ollama pull phi3:mini
 ```
 
@@ -131,7 +136,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - Check if the config file path is correct
 
 ### "Model not found"
-- Run `ollama pull phi3:mini` again
+- Run `ollama pull tinyllama` or `ollama pull qwen2:0.5b`
 - Verify with `ollama list`
 
 ## Running Everything (All Terminals)

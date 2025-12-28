@@ -8,7 +8,7 @@ export interface Message {
 export interface ModelConfig {
     id: string;
     name: string;
-    provider: "ollama" | "anthropic" | "openai";
+    provider: "ollama" | "anthropic" | "openai" | "openrouter" | "huggingface";
     description: string;
     icon: string;
 }

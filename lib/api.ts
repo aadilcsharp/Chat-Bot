@@ -12,7 +12,6 @@ const LITELLM_PROXY_URL =
  * ❌ Do NOT do this in production
  */
 const MASTER_KEY = "sk-1234"; // LiteLLM master key
-const OPENROUTER_KEY = "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"; // OpenRouter key
 
 /**
  * Request type (OpenAI compatible)
@@ -23,19 +22,6 @@ export interface ChatCompletionRequest {
   temperature?: number;
   max_tokens?: number;
   stream?: boolean;
-}
-
-/**
- * Decide which API key to send based on model
- */
-function getApiKeyForModel(model: string): string {
-  // OpenRouter models
-  if (model.startsWith("openrouter/")) {
-    return OPENROUTER_KEY;
-  }
-
-  // Default → local Ollama / LiteLLM
-  return MASTER_KEY;
 }
 
 /**
@@ -59,7 +45,9 @@ export async function sendChatMessage(
     stream: !!onChunk,
   };
 
-  const apiKey = getApiKeyForModel(model);
+  // LiteLLM Proxy handles model-specific API keys internally via litellm-config.yaml
+  // We just need the master key for the proxy itself
+  const apiKey = MASTER_KEY;
 
   let response: Response;
 
@@ -76,10 +64,10 @@ export async function sendChatMessage(
     console.log("LiteLLM URL:", LITELLM_PROXY_URL);
     throw new Error(
       `Cannot connect to LiteLLM proxy at ${LITELLM_PROXY_URL}.\n` +
-        `Ensure:\n` +
-        `1. LiteLLM is running\n` +
-        `2. Ollama is running for local models\n` +
-        `3. Proxy URL is correct`
+      `Ensure:\n` +
+      `1. LiteLLM is running\n` +
+      `2. Ollama is running for local models\n` +
+      `3. Proxy URL is correct`
     );
   }
 
@@ -94,17 +82,17 @@ export async function sendChatMessage(
     if (response.status === 404) {
       throw new Error(
         `Model "${model}" not found.\n` +
-          `Check:\n` +
-          `1. Model exists in litellm-config.yaml\n` +
-          `2. Ollama model is pulled\n` +
-          `3. API key is correct`
+        `Check:\n` +
+        `1. Model exists in litellm-config.yaml\n` +
+        `2. Ollama model is pulled\n` +
+        `3. API key is correct`
       );
     }
 
     if (response.status === 401 || response.status === 403) {
       throw new Error(
         `Authentication failed.\n` +
-          `Check API keys and restart LiteLLM.`
+        `Check API keys and restart LiteLLM.`
       );
     }
 

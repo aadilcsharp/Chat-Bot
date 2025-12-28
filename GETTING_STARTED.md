@@ -7,7 +7,7 @@ Welcome! This guide will get you chatting with AI in just 5 minutes.
 Before starting, make sure you have:
 - ✅ **Node.js 18+** - Already installed (used to install packages)
 - ⬜ **Python 3.8+** - For LiteLLM proxy
-- ⬜ **Ollama** - For local Phi-3 models
+- ⬜ **Ollama** - For local models (TinyLlama, Qwen2, Phi-3)
 
 ---
 
@@ -34,7 +34,7 @@ brew install ollama
 curl -fsSL https://ollama.ai/install.sh | sh
 ```
 
-### Step 2: Start Ollama & Pull Phi-3 (2 minutes)
+### Step 2: Start Ollama & Pull Models (2 minutes)
 
 Open a **new terminal window** and run:
 
@@ -43,10 +43,20 @@ Open a **new terminal window** and run:
 ollama serve
 ```
 
-Keep this terminal open! Now open **another terminal** and run:
+Keep this terminal open! Now open **another terminal** and pull a model that fits your computer's memory:
 
+**For low memory ( < 4GB RAM):**
 ```bash
-# Pull the Phi-3 mini model (about 2.3GB)
+# Pull TinyLlama (about 640MB)
+ollama pull tinyllama
+
+# OR Pull Qwen2 0.5B (about 350MB) - Very fast!
+ollama pull qwen2:0.5b
+```
+
+**For standard memory (8GB+ RAM):**
+```bash
+# Pull Phi-3 mini model (about 2.3GB)
 ollama pull phi3:mini
 ```
 
@@ -102,7 +112,7 @@ You should see the beautiful chat interface!
 ## 🎮 Using the App
 
 ### 1. Select a Model
-In the left sidebar, click on **"Phi-3 Mini (Local) 🏠"** - it should already be selected.
+In the left sidebar, click on **"TinyLlama (Local) 🏠"** or **"Qwen2 0.5B (Local) 🏠"** - one of these should already be selected.
 
 ### 2. Type a Message
 At the bottom, type something like:
@@ -221,8 +231,8 @@ Open http://localhost:3000 in browser
 **Fix**: Run `ollama serve` in a terminal
 
 ### "Model not found"
-**Problem**: Phi-3 not downloaded
-**Fix**: Run `ollama pull phi3:mini`
+**Problem**: Model not downloaded
+**Fix**: Run `ollama pull tinyllama` or `ollama pull qwen2:0.5b`
 
 ### "Cannot connect to LiteLLM proxy"
 **Problem**: LiteLLM isn't running

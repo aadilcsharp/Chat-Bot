@@ -24,7 +24,13 @@ litellm --config litellm-config.yaml --port 11434
 ollama serve
 ```
 
-### Pull Phi-3 Model
+### Pull Small Models (Low Memory)
+```bash
+ollama pull tinyllama
+ollama pull qwen2:0.5b
+```
+
+### Pull Phi-3 Model (Standard Memory)
 ```bash
 ollama pull phi3:mini
 ```
@@ -148,7 +154,7 @@ ollama serve
 ollama list
 
 # Pull model
-ollama pull phi3:mini
+ollama pull tinyllama
 ```
 
 ### "Module not found" (Next.js)
@@ -195,12 +201,14 @@ npm install
 
 ## Model IDs Reference
 
-| Model | ID in Config | Provider |
-|-------|-------------|----------|
-| Phi-3 Mini | `ollama/phi3:mini` | Ollama (Local) |
-| Phi-3 Medium | `ollama/phi3:medium` | Ollama (Local) |
-| Claude 3.5 Sonnet | `claude-3-5-sonnet-20240620` | Anthropic |
-| GPT-4o | `gpt-4o` | OpenAI |
+| Model | ID in Config | Provider | Auth |
+|-------|-------------|----------|------|
+| TinyLlama | `tinyllama` | Ollama (Local) | Master Key |
+| Qwen2 0.5B | `qwen2-0.5b` | Ollama (Local) | Master Key |
+| Phi-3 Mini | `phi3-mini` | Ollama (Local) | Master Key |
+| Claude 3.5 Sonnet | `claude-3-5-sonnet-20240620` | Anthropic | Master Key |
+| GPT-4o | `gpt-4o` | OpenAI | Master Key |
+| LLaMA 3 8B | `llama-3-8b` | OpenRouter | Master Key |
 
 ---
 
@@ -234,7 +242,7 @@ Chat-bot-Local/
 - [ ] Node.js installed
 - [ ] Python installed
 - [ ] Ollama installed and running
-- [ ] Phi-3 model pulled
+- [ ] Small model pulled (e.g., `tinyllama`)
 - [ ] LiteLLM installed
 - [ ] NPM packages installed
 - [ ] LiteLLM proxy running

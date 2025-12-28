@@ -4,7 +4,7 @@ import { ChatState, Message } from "./types";
 export const useChatStore = create<ChatState>((set) => ({
     messages: [],
     settings: {
-        model: "ollama/phi3:mini",
+        model: "tinyllama",
         temperature: 0.7,
         maxTokens: 2048,
         systemPrompt: "You are a helpful AI assistant.",
